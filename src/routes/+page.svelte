@@ -28,7 +28,7 @@ let currentType: string = $state('text');
 	let errorLevel = $state<'L' | 'M' | 'Q' | 'H'>('M');
 
 	let canvasEl: HTMLCanvasElement | undefined = $state();
-	let copyLabel = $state('Copy data');
+	let copied = $state(false);
 
 	function buildData() {
 		const val = content.trim();
@@ -84,8 +84,8 @@ let currentType: string = $state('text');
 
 	function copyData() {
 		navigator.clipboard.writeText(buildData());
-		copyLabel = 'Copied!';
-		setTimeout(() => (copyLabel = 'Copy data'), 1200);
+		copied = true;
+		setTimeout(() => (copied = false), 1200);
 	}
 </script>
 
@@ -105,7 +105,10 @@ let currentType: string = $state('text');
 		<!-- Colonne gauche -->
 		<div class="flex flex-col gap-5">
 			<div class="rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
-				<h2 class="mb-1 text-lg font-bold">QR Code Data</h2>
+				<h2 class="mb-1 flex items-center gap-2 text-lg font-bold">
+					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-qr-code-icon lucide-qr-code"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg>
+					QR Code Data
+				</h2>
 				<p class="mb-5 text-xs text-neutral-500">
 					Choose data type and enter information to encode
 				</p>
@@ -233,16 +236,23 @@ let currentType: string = $state('text');
 
 				<div class="mb-4 grid grid-cols-2 gap-3">
 					<button
-						class="rounded-lg bg-white py-3 text-sm font-semibold text-black transition hover:opacity-85"
+						class="inline-flex items-center justify-center gap-2 rounded-lg bg-white py-3 text-sm font-semibold text-black transition hover:opacity-85"
 						onclick={downloadPng}
 					>
-						&#8681; Download PNG
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download-icon lucide-download"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>
+						Download PNG
 					</button>
 					<button
-						class="rounded-lg border border-neutral-700 bg-transparent py-3 text-sm font-semibold text-white transition hover:opacity-85"
+						class="inline-flex items-center justify-center gap-2 rounded-lg border border-neutral-700 bg-transparent py-3 text-sm font-semibold text-white transition hover:opacity-85"
 						onclick={copyData}
 					>
-						{copyLabel}
+						{#if copied}
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy-check-icon lucide-copy-check"><path d="m12 15 2 2 4-4"/><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+							Copied!
+						{:else}
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy-icon lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+							Copy data
+						{/if}
 					</button>
 				</div>
 
