@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import QRCode from 'qrcode';
 	import github from '$lib/assets/github.png';
+	import QRCodeStyling from 'qr-code-styling';
 
 	type Label = { label: string; placeholder: string };
 
@@ -25,7 +25,8 @@
 	let lightColor = $state('#ffffff');
 	let errorLevel = $state<'L' | 'M' | 'Q' | 'H'>('M');
 
-	let canvasEl: HTMLCanvasElement | undefined = $state();
+	let qrContainer: HTMLDivElement | undefined = $state();
+	let qrCode: QRCodeStyling | undefined = $state();
 	let copied = $state(false);
 
 	function buildData() {
@@ -37,43 +38,38 @@
 		return val;
 	}
 
-	async function draw() {
-		if (!canvasEl) return;
+	async 	function render() {
+		if (!qrContainer) return;
 		const data = buildData();
-		if (!data) {
-			const ctx = canvasEl.getContext('2d');
-			if (!ctx) return;
-			canvasEl.width = size;
-			canvasEl.height = size;
-			ctx.clearRect(0, 0, size, size);
-			return;
-		}
-		try {
-			await QRCode.toCanvas(canvasEl, data, {
-				width: size,
-				margin,
-				color: { dark: darkColor, light: lightColor },
-				errorCorrectionLevel: errorLevel
-			});
-		} catch (e) {
-			console.error(e);
+		if (!data) return;
+		const options = {
+			width: size,
+			height: size,
+			data,
+			margin,
+			type: 'canvas' as const,
+			qrOptions: { errorCorrectionLevel: errorLevel },
+			dotsOptions: { color: darkColor, type: 'square' as const },
+			backgroundOptions: { color: lightColor },
+		};
+		if (!qrCode) {
+			qrCode = new QRCodeStyling(options);
+			qrCode.append(qrContainer);
+		} else {
+			qrCode.update(options);
 		}
 	}
 
 	let currentConfig = $derived(labels[currentType]);
 	let dataPreview = $derived(buildData() || '—');
 	$effect(() => {
-		draw();
+		render();
 	});
 
-	onMount(draw);
+	onMount(render);
 
 	function downloadPng() {
-		if (!canvasEl) return;
-		const link = document.createElement('a');
-		link.download = 'qrcode.png';
-		link.href = canvasEl.toDataURL('image/png');
-		link.click();
+		qrCode?.download({ name: 'qrcode', extension: 'png' });
 	}
 
 	function copyData() {
@@ -235,7 +231,7 @@
 
 				<div class="flex justify-center py-7">
 					<div class="inline-flex rounded-2xl bg-white p-5">
-						<canvas bind:this={canvasEl}></canvas>
+						<div bind:this={qrContainer}></div>
 					</div>
 				</div>
 
