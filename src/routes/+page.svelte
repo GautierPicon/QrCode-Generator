@@ -158,7 +158,7 @@
 				<select
 					bind:value={currentType}
 					onchange={() => (content = '')}
-					class="mb-5 w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3.5 py-3 text-sm text-white outline-none"
+					class="mb-5 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950 px-3.5 py-3 text-sm text-white outline-none"
 				>
 					{#each types as type (type)}
 						<option value={type}>{type[0].toUpperCase() + type.slice(1)}</option>
@@ -191,7 +191,7 @@
 						max="512"
 						step="8"
 						bind:value={size}
-						class="w-full accent-white"
+						class="w-full cursor-pointer accent-white"
 					/>
 				</div>
 
@@ -206,7 +206,7 @@
 						max="10"
 						step="1"
 						bind:value={margin}
-						class="w-full accent-white"
+						class="w-full cursor-pointer accent-white"
 					/>
 				</div>
 
@@ -245,7 +245,7 @@
 					id="error-level"
 					bind:value={errorLevel}
 					disabled={!!logoUrl}
-					class="w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3.5 py-3 text-sm text-white outline-none disabled:opacity-50"
+					class="w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950 px-3.5 py-3 text-sm text-white outline-none disabled:opacity-50"
 				>
 					<option value="L">Low (7%)</option>
 					<option value="M">Medium (15%)</option>
@@ -282,14 +282,14 @@
 									<button
 										type="button"
 										onclick={() => logoInput?.click()}
-										class="rounded-lg border border-neutral-700 px-3 py-1.5 text-xs font-medium text-neutral-300 transition hover:bg-neutral-700"
+										class="cursor-pointer rounded-lg border border-neutral-700 px-3 py-1.5 text-xs font-medium text-neutral-300 transition hover:bg-neutral-700"
 									>
 										Change
 									</button>
 									<button
 										type="button"
 										onclick={removeLogo}
-										class="rounded-lg border border-neutral-700 px-3 py-1.5 text-xs font-medium text-red-400 transition hover:bg-neutral-700"
+										class="cursor-pointer rounded-lg border border-neutral-700 px-3 py-1.5 text-xs font-medium text-red-400 transition hover:bg-neutral-700"
 									>
 										Remove
 									</button>
@@ -338,7 +338,7 @@
 
 				<div class="mb-4 grid grid-cols-2 gap-3">
 					<button
-						class="inline-flex items-center justify-center gap-2 rounded-lg bg-white py-3.5 text-base font-semibold text-black transition hover:opacity-85"
+						class="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-white py-3.5 text-base font-semibold text-black transition hover:opacity-85"
 						onclick={downloadPng}
 					>
 						<svg
@@ -359,7 +359,7 @@
 						Download PNG
 					</button>
 					<button
-						class="inline-flex items-center justify-center gap-2 rounded-lg border border-neutral-700 bg-transparent py-3 text-sm font-semibold text-white transition hover:opacity-85"
+						class="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-neutral-700 bg-transparent py-3 text-sm font-semibold text-white transition hover:opacity-85"
 						onclick={copyData}
 					>
 						{#if copied}
