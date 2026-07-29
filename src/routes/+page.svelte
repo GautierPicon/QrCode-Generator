@@ -14,10 +14,7 @@
 		contact: { label: 'Contact info', placeholder: 'John Doe, +1 555 123 4567' }
 	};
 
-	const tabRows = [
-		['text', 'url', 'email'],
-		['phone', 'sms', 'wifi', 'contact']
-	] as const;
+	const types = ['text', 'url', 'email', 'phone', 'sms', 'wifi', 'contact'] as const;
 
 	let currentType: string = $state('text');
 	let content = $state('Hello, world!');
@@ -36,11 +33,6 @@
 		if (currentType === 'phone') return val ? 'tel:' + val : '';
 		if (currentType === 'sms') return val ? 'sms:' + val : '';
 		return val;
-	}
-
-	function selectTab(type: string) {
-		currentType = type;
-		content = '';
 	}
 
 	async function draw() {
@@ -137,32 +129,15 @@
 					Choose data type and enter information to encode
 				</p>
 
-				<div class="mb-2 grid grid-cols-3 gap-2">
-					{#each tabRows[0] as type (type)}
-						<button
-							class="rounded-lg border px-2 py-2.5 text-sm font-semibold transition
-                {currentType === type
-								? 'border-neutral-700 bg-neutral-800 text-white'
-								: 'border-neutral-800 bg-neutral-900 text-neutral-400 hover:bg-neutral-800 hover:text-neutral-200'}"
-							onclick={() => selectTab(type)}
-						>
-							{type[0].toUpperCase() + type.slice(1)}
-						</button>
+				<select
+					bind:value={currentType}
+					onchange={() => (content = '')}
+					class="mb-5 w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3.5 py-3 text-sm text-white outline-none"
+				>
+					{#each types as type (type)}
+						<option value={type}>{type[0].toUpperCase() + type.slice(1)}</option>
 					{/each}
-				</div>
-				<div class="mb-5 grid grid-cols-4 gap-2">
-					{#each tabRows[1] as type (type)}
-						<button
-							class="rounded-lg border px-2 py-2.5 text-sm font-semibold transition
-                {currentType === type
-								? 'border-neutral-700 bg-neutral-800 text-white'
-								: 'border-neutral-800 bg-neutral-900 text-neutral-400 hover:bg-neutral-800 hover:text-neutral-200'}"
-							onclick={() => selectTab(type)}
-						>
-							{type[0].toUpperCase() + type.slice(1)}
-						</button>
-					{/each}
-				</div>
+				</select>
 
 				<label class="mb-2 block text-sm font-semibold" for="content-input">
 					{currentConfig.label}
