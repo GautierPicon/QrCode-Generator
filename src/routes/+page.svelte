@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import QRCode from 'qrcode';
+	import github from '$lib/assets/github.png';
 
 	type Label = { label: string; placeholder: string };
 
@@ -240,13 +241,13 @@
 
 				<div class="mb-4 grid grid-cols-2 gap-3">
 					<button
-						class="inline-flex items-center justify-center gap-2 rounded-lg bg-white py-3 text-sm font-semibold text-black transition hover:opacity-85"
+						class="inline-flex items-center justify-center gap-2 rounded-lg bg-white py-3.5 text-base font-semibold text-black transition hover:opacity-85"
 						onclick={downloadPng}
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							width="16"
-							height="16"
+							width="18"
+							height="18"
 							viewBox="0 0 24 24"
 							fill="none"
 							stroke="currentColor"
@@ -317,6 +318,18 @@
 					{dataPreview}
 				</div>
 			</div>
+
+			<a
+				href="https://github.com/GautierPicon/QrCode-Generator"
+				target="_blank"
+				class="flex items-center gap-3 rounded-2xl border border-neutral-800 bg-neutral-900 p-6 transition hover:bg-neutral-800"
+			>
+				<img src={github} alt="GitHub" class="h-7 w-7" />
+				<div>
+					<p class="text-sm font-semibold text-white">Open source</p>
+					<p class="text-xs text-neutral-400">Contribute on GitHub</p>
+				</div>
+			</a>
 		</div>
 	</div>
 </div>
