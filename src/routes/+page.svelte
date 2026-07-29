@@ -216,7 +216,8 @@
 						<input
 							id="dark-color"
 							type="color"
-							bind:value={darkColor}
+							value={darkColor}
+							oninput={(e) => (darkColor = (e.target as HTMLInputElement).value)}
 							class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950 p-1"
 						/>
 					</div>
@@ -225,7 +226,8 @@
 						<input
 							id="light-color"
 							type="color"
-							bind:value={lightColor}
+							value={lightColor}
+							oninput={(e) => (lightColor = (e.target as HTMLInputElement).value)}
 							class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950 p-1"
 						/>
 					</div>
@@ -265,18 +267,14 @@
 					{#if logoUrl}
 						<div class="rounded-lg border border-neutral-700 bg-neutral-800/50 p-3">
 							<div class="flex items-center gap-4">
-								<div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-neutral-900">
-									<img
-										src={logoUrl}
-										alt="Logo preview"
-										class="max-h-10 max-w-10 object-contain"
-									/>
+								<div
+									class="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-neutral-900"
+								>
+									<img src={logoUrl} alt="Logo preview" class="max-h-10 max-w-10 object-contain" />
 								</div>
 								<div class="min-w-0 flex-1">
 									<p class="truncate text-sm font-medium text-white">Logo uploaded</p>
-									<p class="text-xs text-neutral-500">
-										Appears centered on the QR code
-									</p>
+									<p class="text-xs text-neutral-500">Appears centered on the QR code</p>
 								</div>
 								<div class="flex gap-2">
 									<button

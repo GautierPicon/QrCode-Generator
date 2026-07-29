@@ -11,7 +11,7 @@ Free and feature-rich QR code generator
 ## Features
 
 - Multi-format encoding
-- Customizing the QR Code Design 
+- Customizing the QR Code Design
 - Logo overlay
 - Real-time preview
 - Placeholder fallback
