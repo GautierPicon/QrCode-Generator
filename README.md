@@ -1,42 +1,59 @@
-# sv
+![Logo](src/lib/assets/logo.png)
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+# QrCode-Generator
 
-## Creating a project
+Free and feature-rich QR code generator
 
-If you're seeing this, you've probably already done this step. Congrats!
+## License
 
-```sh
-# create a new project
-npx sv create my-app
+[MIT](https://choosealicense.com/licenses/mit/)
+
+## Features
+
+- Multi-format encoding
+- Customizing the QR Code Design 
+- Logo overlay
+- Real-time preview
+- Placeholder fallback
+- Customizable size
+- Margin control
+- Color pickers
+- Error correction
+- Download PNG
+- Copy data
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/GautierPicon/QrCode-Generator
 ```
 
-To recreate this project with the same configuration:
+Go to the project directory
 
-```sh
-# recreate this project
-bun x sv@0.16.6 create --template minimal --types ts --add prettier eslint tailwindcss="plugins:typography" --install bun qrcode
+```bash
+  cd QrCode-Generator
 ```
 
-## Developing
+Install dependencies
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+```bash
+  bun install
 ```
 
-## Building
+Start the server
 
-To create a production version of your app:
-
-```sh
-npm run build
+```bash
+  bun run start
 ```
 
-You can preview the production build with `npm run preview`.
+## Feedback
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+If you have any feedback, please feel free to open an [issue](https://github.com/GautierPicon/QrCode-Generator/issues)
+
+## Contributing
+
+Contributions are always welcome!
+
+Please submit a [pull request](https://github.com/GautierPicon/QrCode-Generator/pulls)
