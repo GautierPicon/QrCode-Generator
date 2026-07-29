@@ -1,6 +1,6 @@
 export function displayConsoleArt() {
-  console.log(
-    `%c                                           
+	console.log(
+		String.raw`%c                                           
                      j$$$$$$$$$$$$$$$r                      
                   X$$$$$$$$$$$$$$$$$$$$$\                   
                 I$$$$$$$$$$$$$$$$$$$$$$$$$                  
@@ -27,6 +27,6 @@ export function displayConsoleArt() {
       a$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$@       
     B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 `,
-    'color: #a78bfa;'
-  );
+		'color: #a78bfa;'
+	);
 }
