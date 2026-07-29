@@ -26,6 +26,9 @@
 	let errorLevel = $state<'L' | 'M' | 'Q' | 'H'>('M');
 	let previousErrorLevel = $state<'L' | 'M' | 'Q' | 'H'>('M');
 
+	let darkInput: HTMLInputElement | undefined = $state();
+	let lightInput: HTMLInputElement | undefined = $state();
+
 	let logoUrl: string | undefined = $state();
 	let logoInput: HTMLInputElement | undefined = $state();
 
@@ -94,7 +97,11 @@
 		render();
 	});
 
-	onMount(render);
+	onMount(() => {
+		if (darkInput) darkInput.value = darkColor;
+		if (lightInput) lightInput.value = lightColor;
+		render();
+	});
 
 	function downloadPng() {
 		qrCode?.download({ name: 'qrcode', extension: 'png' });
@@ -216,7 +223,7 @@
 						<input
 							id="dark-color"
 							type="color"
-							value={darkColor}
+							bind:this={darkInput}
 							oninput={(e) => (darkColor = (e.target as HTMLInputElement).value)}
 							class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950 p-1"
 						/>
@@ -226,7 +233,7 @@
 						<input
 							id="light-color"
 							type="color"
-							value={lightColor}
+							bind:this={lightInput}
 							oninput={(e) => (lightColor = (e.target as HTMLInputElement).value)}
 							class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950 p-1"
 						/>
