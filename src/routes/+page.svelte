@@ -29,9 +29,10 @@
 
 	function buildData() {
 		const val = content.trim();
-		if (currentType === 'email') return val ? 'mailto:' + val : '';
-		if (currentType === 'phone') return val ? 'tel:' + val : '';
-		if (currentType === 'sms') return val ? 'sms:' + val : '';
+		if (!val) return labels[currentType].placeholder;
+		if (currentType === 'email') return 'mailto:' + val;
+		if (currentType === 'phone') return 'tel:' + val;
+		if (currentType === 'sms') return 'sms:' + val;
 		return val;
 	}
 
