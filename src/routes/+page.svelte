@@ -1,7 +1,6 @@
 <script lang="ts">
 	import QRCodeStyling from 'qr-code-styling';
 	import { labels } from '$lib/types';
-	import Header from '$lib/components/Header.svelte';
 	import QRData from '$lib/components/QRData.svelte';
 	import Customization from '$lib/components/Customization.svelte';
 	import QRCodeDisplay from '$lib/components/QRCodeDisplay.svelte';
@@ -133,8 +132,7 @@
 	<title>QR Code Generator</title>
 </svelte:head>
 
-<div class="min-h-screen bg-neutral-950 text-white">
-	<Header />
+<div class="min-h-screen pt-12 bg-neutral-950 text-white">
 
 	<div class="mx-auto grid max-w-6xl grid-cols-1 gap-5 px-6 pb-12 md:grid-cols-2">
 		<div class="flex flex-col gap-5">
