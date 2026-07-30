@@ -2,14 +2,14 @@
 
 ## Commands
 
-| Command | Action |
-|---------|--------|
-| `bun run dev` | Start dev server |
-| `bun run build` | Production build |
+| Command           | Action                   |
+| ----------------- | ------------------------ |
+| `bun run dev`     | Start dev server         |
+| `bun run build`   | Production build         |
 | `bun run preview` | Preview production build |
-| `bun run check` | Typecheck (svelte-check) |
-| `bun run lint` | Prettier check + ESLint |
-| `bun run format` | Prettier write |
+| `bun run check`   | Typecheck (svelte-check) |
+| `bun run lint`    | Prettier check + ESLint  |
+| `bun run format`  | Prettier write           |
 
 Always run `bun run lint && bun run check && bun run build` before committing.
 
@@ -31,11 +31,11 @@ Always run `bun run lint && bun run check && bun run build` before committing.
 
 ## Key files
 
-| Path | Role |
-|------|------|
-| `src/routes/+page.svelte` | Main page (all UI) |
+| Path                        | Role                                           |
+| --------------------------- | ---------------------------------------------- |
+| `src/routes/+page.svelte`   | Main page (all UI)                             |
 | `src/routes/+layout.svelte` | Root layout (CSS, favicon, console easter egg) |
-| `src/routes/layout.css` | TailwindCSS import |
-| `src/scripts/ConsoleArt.ts` | Console easter egg |
-| `src/app.html` | HTML shell (body has `bg-neutral-950`) |
-| `src/lib/assets/` | Static assets (logo, favicon, github.png) |
+| `src/routes/layout.css`     | TailwindCSS import                             |
+| `src/scripts/ConsoleArt.ts` | Console easter egg                             |
+| `src/app.html`              | HTML shell (body has `bg-neutral-950`)         |
+| `src/lib/assets/`           | Static assets (logo, favicon, github.png)      |
