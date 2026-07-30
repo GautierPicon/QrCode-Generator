@@ -1,14 +1,14 @@
 <script lang="ts">
 	let {
 		container = $bindable<HTMLDivElement | undefined>(),
-		copied = false,
+		urlCopied = false,
 		downloadPng,
-		copyData
+		copyUrl
 	}: {
 		container?: HTMLDivElement | undefined;
-		copied?: boolean;
+		urlCopied?: boolean;
 		downloadPng?: () => void;
-		copyData?: () => void;
+		copyUrl?: () => void;
 	} = $props();
 </script>
 
@@ -42,13 +42,13 @@
 					d="m7 10 5 5 5-5"
 				/></svg
 			>
-			Download PNG
+			PNG
 		</button>
 		<button
-			class="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-neutral-700 bg-transparent py-3 text-sm font-semibold text-white transition hover:opacity-85"
-			onclick={() => copyData?.()}
+			class="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-neutral-700 bg-transparent py-3.5 text-sm font-semibold text-white transition hover:opacity-85"
+			onclick={() => copyUrl?.()}
 		>
-			{#if copied}
+			{#if urlCopied}
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="16"
@@ -59,9 +59,9 @@
 					stroke-width="2"
 					stroke-linecap="round"
 					stroke-linejoin="round"
-					class="lucide lucide-copy-check-icon lucide-copy-check"
-					><path d="m12 15 2 2 4-4" /><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path
-						d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+					class="lucide lucide-link-icon lucide-link"
+					><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path
+						d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
 					/></svg
 				>
 				Copied!
@@ -76,12 +76,12 @@
 					stroke-width="2"
 					stroke-linecap="round"
 					stroke-linejoin="round"
-					class="lucide lucide-copy-icon lucide-copy"
-					><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path
-						d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+					class="lucide lucide-link-icon lucide-link"
+					><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path
+						d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
 					/></svg
 				>
-				Copy data
+				Copy URL
 			{/if}
 		</button>
 	</div>

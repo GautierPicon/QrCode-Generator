@@ -7,17 +7,30 @@
 	import DataPreview from '$lib/components/DataPreview.svelte';
 	import GitHubLink from '$lib/components/GitHubLink.svelte';
 
-	let currentType = $state('text');
-	let content = $state('Hello, world!');
-	let wifiSsid = $state('');
-	let wifiSecurity = $state('WPA');
-	let wifiPassword = $state('');
-	let contactFirstName = $state('');
-	let contactLastName = $state('');
-	let contactOrg = $state('');
-	let contactPhone = $state('');
-	let contactEmail = $state('');
-	let contactWebsite = $state('');
+	let { data } = $props();
+
+	// svelte-ignore state_referenced_locally
+	let currentType = $state(data.type ?? 'text');
+	// svelte-ignore state_referenced_locally
+	let content = $state(data.content ?? 'Hello, world!');
+	// svelte-ignore state_referenced_locally
+	let wifiSsid = $state(data.wifiSsid ?? '');
+	// svelte-ignore state_referenced_locally
+	let wifiSecurity = $state(data.wifiSecurity ?? 'WPA');
+	// svelte-ignore state_referenced_locally
+	let wifiPassword = $state(data.wifiPassword ?? '');
+	// svelte-ignore state_referenced_locally
+	let contactFirstName = $state(data.contactFirstName ?? '');
+	// svelte-ignore state_referenced_locally
+	let contactLastName = $state(data.contactLastName ?? '');
+	// svelte-ignore state_referenced_locally
+	let contactOrg = $state(data.contactOrg ?? '');
+	// svelte-ignore state_referenced_locally
+	let contactPhone = $state(data.contactPhone ?? '');
+	// svelte-ignore state_referenced_locally
+	let contactEmail = $state(data.contactEmail ?? '');
+	// svelte-ignore state_referenced_locally
+	let contactWebsite = $state(data.contactWebsite ?? '');
 	let size = $state(256);
 	let margin = $state(4);
 	let darkColor = $state('#000000');
@@ -27,7 +40,7 @@
 
 	let qrContainer: HTMLDivElement | undefined = $state();
 	let qrCode: QRCodeStyling | undefined = $state();
-	let copied = $state(false);
+	let urlCopied = $state(false);
 
 	function buildData() {
 		if (currentType === 'wifi') {
@@ -121,10 +134,28 @@
 		qrCode?.download({ name: 'qrcode', extension: 'png' });
 	}
 
-	function copyData() {
-		navigator.clipboard.writeText(buildData());
-		copied = true;
-		setTimeout(() => (copied = false), 1200);
+	function copyUrl() {
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity
+		const params = new URLSearchParams();
+		params.set('type', currentType);
+		if (currentType === 'wifi') {
+			if (wifiSsid) params.set('ssid', wifiSsid);
+			if (wifiSecurity !== 'WPA') params.set('security', wifiSecurity);
+			if (wifiPassword) params.set('password', wifiPassword);
+		} else if (currentType === 'contact') {
+			if (contactFirstName.trim()) params.set('firstName', contactFirstName.trim());
+			if (contactLastName.trim()) params.set('lastName', contactLastName.trim());
+			if (contactOrg.trim()) params.set('org', contactOrg.trim());
+			if (contactPhone.trim()) params.set('phone', contactPhone.trim());
+			if (contactEmail.trim()) params.set('email', contactEmail.trim());
+			if (contactWebsite.trim()) params.set('website', contactWebsite.trim());
+		} else {
+			if (content.trim()) params.set('content', content.trim());
+		}
+		const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+		navigator.clipboard.writeText(url);
+		urlCopied = true;
+		setTimeout(() => (urlCopied = false), 1200);
 	}
 </script>
 
@@ -132,8 +163,7 @@
 	<title>QR Code Generator</title>
 </svelte:head>
 
-<div class="min-h-screen pt-12 bg-neutral-950 text-white">
-
+<div class="min-h-screen bg-neutral-950 pt-12 text-white">
 	<div class="mx-auto grid max-w-6xl grid-cols-1 gap-5 px-6 pb-12 md:grid-cols-2">
 		<div class="flex flex-col gap-5">
 			<QRData
@@ -160,7 +190,7 @@
 		</div>
 
 		<div class="flex flex-col gap-5">
-			<QRCodeDisplay bind:container={qrContainer} {copied} {downloadPng} {copyData} />
+			<QRCodeDisplay bind:container={qrContainer} {urlCopied} {downloadPng} {copyUrl} />
 			<DataPreview {dataPreview} />
 			<GitHubLink />
 		</div>
