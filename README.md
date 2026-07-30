@@ -1,4 +1,4 @@
-![Logo](src/lib/assets/logo.png)
+![Logo](static/favicons/favicon.png)
 
 # QrCode-Generator
 
