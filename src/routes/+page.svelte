@@ -130,8 +130,8 @@
 		render();
 	});
 
-	function downloadPng() {
-		qrCode?.download({ name: 'qrcode', extension: 'png' });
+	function download(extension: 'png' | 'webp' | 'jpeg') {
+		qrCode?.download({ name: 'qrcode', extension });
 	}
 
 	function copyUrl() {
@@ -190,7 +190,7 @@
 		</div>
 
 		<div class="flex flex-col gap-5">
-			<QRCodeDisplay bind:container={qrContainer} {urlCopied} {downloadPng} {copyUrl} />
+			<QRCodeDisplay bind:container={qrContainer} {urlCopied} {download} {copyUrl} />
 			<DataPreview {dataPreview} />
 			<GitHubLink />
 		</div>
