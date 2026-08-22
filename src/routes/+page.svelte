@@ -173,10 +173,6 @@
 	}
 </script>
 
-<svelte:head>
-	<title>QR Code Generator</title>
-</svelte:head>
-
 <div class="min-h-screen bg-neutral-950 pt-12 text-white">
 	<div class="mx-auto grid max-w-6xl grid-cols-1 gap-5 px-6 pb-12 md:grid-cols-2">
 		<div class="flex flex-col gap-5">
