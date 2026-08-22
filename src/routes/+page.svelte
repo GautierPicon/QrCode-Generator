@@ -31,11 +31,16 @@
 	let contactEmail = $state(data.contactEmail ?? '');
 	// svelte-ignore state_referenced_locally
 	let contactWebsite = $state(data.contactWebsite ?? '');
-	let size = $state(256);
-	let margin = $state(1);
-	let darkColor = $state('#000000');
-	let lightColor = $state('#ffffff');
-	let errorLevel = $state<'L' | 'M' | 'Q' | 'H'>('M');
+	// svelte-ignore state_referenced_locally
+	let size = $state(data.size ? Number(data.size) : 256);
+	// svelte-ignore state_referenced_locally
+	let margin = $state(data.margin !== undefined ? Number(data.margin) : 1);
+	// svelte-ignore state_referenced_locally
+	let darkColor = $state(data.darkColor ?? '#000000');
+	// svelte-ignore state_referenced_locally
+	let lightColor = $state(data.lightColor ?? '#ffffff');
+	// svelte-ignore state_referenced_locally
+	let errorLevel = $state<'L' | 'M' | 'Q' | 'H'>((data.errorLevel as 'L' | 'M' | 'Q' | 'H') ?? 'M');
 	let logoUrl: string | undefined = $state();
 
 	let qrContainer: HTMLDivElement | undefined = $state();
@@ -152,6 +157,11 @@
 		} else {
 			if (content.trim()) params.set('content', content.trim());
 		}
+		params.set('size', String(size));
+		if (margin !== 1) params.set('margin', String(margin));
+		if (darkColor !== '#000000') params.set('darkColor', darkColor);
+		if (lightColor !== '#ffffff') params.set('lightColor', lightColor);
+		if (errorLevel !== 'M') params.set('errorLevel', errorLevel);
 		const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
 		navigator.clipboard.writeText(url);
 		urlCopied = true;

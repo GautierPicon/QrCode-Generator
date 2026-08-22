@@ -13,6 +13,11 @@ export const load: PageLoad = ({ url }) => {
 		contactOrg: sp.get('org') || undefined,
 		contactPhone: sp.get('phone') || undefined,
 		contactEmail: sp.get('email') || undefined,
-		contactWebsite: sp.get('website') || undefined
+		contactWebsite: sp.get('website') || undefined,
+		size: sp.get('size') || undefined,
+		margin: sp.get('margin') || undefined,
+		darkColor: sp.get('darkColor') || undefined,
+		lightColor: sp.get('lightColor') || undefined,
+		errorLevel: sp.get('errorLevel') || undefined
 	};
 };
