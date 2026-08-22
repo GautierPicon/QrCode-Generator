@@ -53,7 +53,7 @@
 			type="range"
 			min="128"
 			max="512"
-			step="8"
+			step="64"
 			bind:value={size}
 			class="w-full cursor-pointer accent-white"
 		/>
