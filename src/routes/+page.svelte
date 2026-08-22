@@ -130,7 +130,7 @@
 		render();
 	});
 
-	function download(extension: 'png' | 'webp' | 'jpeg') {
+	function download(extension: 'png' | 'webp' | 'jpeg' | 'svg') {
 		qrCode?.download({ name: 'qrcode', extension });
 	}
 

@@ -7,12 +7,13 @@
 	}: {
 		container?: HTMLDivElement | undefined;
 		urlCopied?: boolean;
-		download?: (extension: 'png' | 'webp' | 'jpeg') => void;
+		download?: (extension: 'png' | 'webp' | 'jpeg' | 'svg') => void;
 		copyUrl?: () => void;
 	} = $props();
 
-	const formats: { extension: 'png' | 'webp' | 'jpeg'; label: string }[] = [
+	const formats: { extension: 'png' | 'webp' | 'jpeg' | 'svg'; label: string }[] = [
 		{ extension: 'png', label: 'PNG' },
+		{ extension: 'svg', label: 'SVG' },
 		{ extension: 'webp', label: 'WebP' },
 		{ extension: 'jpeg', label: 'JPG' }
 	];
@@ -20,7 +21,7 @@
 	let open = $state(false);
 	let dropdown: HTMLDivElement | undefined = $state();
 
-	function onSelect(extension: 'png' | 'webp' | 'jpeg') {
+	function onSelect(extension: 'png' | 'webp' | 'jpeg' | 'svg') {
 		open = false;
 		download?.(extension);
 	}
