@@ -163,9 +163,13 @@
 		if (lightColor !== '#ffffff') params.set('lightColor', lightColor);
 		if (errorLevel !== 'M') params.set('errorLevel', errorLevel);
 		const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-		navigator.clipboard.writeText(url);
-		urlCopied = true;
-		setTimeout(() => (urlCopied = false), 1200);
+		navigator.clipboard
+			.writeText(url)
+			.then(() => {
+				urlCopied = true;
+				setTimeout(() => (urlCopied = false), 1200);
+			})
+			.catch(() => {});
 	}
 </script>
 
