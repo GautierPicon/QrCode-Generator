@@ -31,8 +31,15 @@
 		function close(event: MouseEvent) {
 			if (!dropdown?.contains(event.target as Node)) open = false;
 		}
+		function onKeydown(event: KeyboardEvent) {
+			if (event.key === 'Escape') open = false;
+		}
 		document.addEventListener('click', close);
-		return () => document.removeEventListener('click', close);
+		document.addEventListener('keydown', onKeydown);
+		return () => {
+			document.removeEventListener('click', close);
+			document.removeEventListener('keydown', onKeydown);
+		};
 	});
 </script>
 
@@ -49,6 +56,8 @@
 			<button
 				class="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-white py-3.5 text-base font-semibold text-black transition hover:opacity-85"
 				onclick={() => (open = !open)}
+				aria-haspopup="menu"
+				aria-expanded={open}
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -82,6 +91,7 @@
 			{#if open}
 				<div
 					class="absolute z-10 mt-2 w-full overflow-hidden rounded-lg border border-neutral-700 bg-neutral-800 shadow-lg"
+					role="menu"
 				>
 					{#each formats as format (format.extension)}
 						<button
