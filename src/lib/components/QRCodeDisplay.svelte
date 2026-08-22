@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { gsap } from 'gsap';
+	import { ChevronDown, Download, Link } from '@lucide/svelte';
 
 	let {
 		container = $bindable<HTMLDivElement | undefined>(),
@@ -22,7 +23,7 @@
 
 	let open = $state(false);
 	let dropdown: HTMLDivElement | undefined = $state();
-	let arrowIcon: SVGSVGElement | undefined = $state();
+	let arrowIcon: HTMLSpanElement | undefined = $state();
 
 	function onSelect(extension: 'png' | 'webp' | 'jpeg' | 'svg') {
 		open = false;
@@ -77,35 +78,11 @@
 				aria-haspopup="menu"
 				aria-expanded={open}
 			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="18"
-					height="18"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					class="lucide lucide-download-icon lucide-download"
-					bind:this={arrowIcon}
-					><path d="M12 15V3" /><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><path
-						d="m7 10 5 5 5-5"
-					/></svg
-				>
+				<span class="inline-flex" bind:this={arrowIcon}>
+					<Download size={18} />
+				</span>
 				Download
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="16"
-					height="16"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					class="lucide lucide-chevron-down-icon lucide-chevron-down"><path d="m6 9 6 6 6-6" /></svg
-				>
+				<ChevronDown size={16} />
 			</button>
 			{#if open}
 				<div
@@ -128,38 +105,10 @@
 			onclick={() => copyUrl?.()}
 		>
 			{#if urlCopied}
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="16"
-					height="16"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					class="lucide lucide-link-icon lucide-link"
-					><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path
-						d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
-					/></svg
-				>
+				<Link size={16} />
 				Copied!
 			{:else}
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="16"
-					height="16"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					class="lucide lucide-link-icon lucide-link"
-					><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path
-						d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
-					/></svg
-				>
+				<Link size={16} />
 				Copy QR code URL
 			{/if}
 		</button>
