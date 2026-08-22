@@ -49,7 +49,6 @@
 
 	<select
 		bind:value={currentType}
-		onchange={() => (content = '')}
 		class="mb-5 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950 px-3.5 py-3 text-sm text-white outline-none"
 	>
 		{#each types as type (type)}
