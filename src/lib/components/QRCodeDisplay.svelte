@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { gsap } from 'gsap';
-	import { ChevronDown, Download, Link } from '@lucide/svelte';
+	import { ChevronDown, FileCode, FileImage, Link } from '@lucide/svelte';
 
 	let {
 		container = $bindable<HTMLDivElement | undefined>(),
@@ -14,11 +14,15 @@
 		copyUrl?: () => void;
 	} = $props();
 
-	const formats: { extension: 'png' | 'webp' | 'jpeg' | 'svg'; label: string }[] = [
-		{ extension: 'png', label: 'PNG' },
-		{ extension: 'svg', label: 'SVG' },
-		{ extension: 'webp', label: 'WebP' },
-		{ extension: 'jpeg', label: 'JPG' }
+	const formats: {
+		extension: 'png' | 'webp' | 'jpeg' | 'svg';
+		label: string;
+		icon: typeof FileImage;
+	}[] = [
+		{ extension: 'png', label: 'PNG', icon: FileImage },
+		{ extension: 'svg', label: 'SVG', icon: FileCode },
+		{ extension: 'webp', label: 'WebP', icon: FileImage },
+		{ extension: 'jpeg', label: 'JPG', icon: FileImage }
 	];
 
 	let open = $state(false);
@@ -69,7 +73,6 @@
 				aria-haspopup="menu"
 				aria-expanded={open}
 			>
-				<Download size={18} />
 				Download
 				<span class="inline-flex" bind:this={chevronIcon}>
 					<ChevronDown size={16} />
@@ -81,10 +84,12 @@
 					role="menu"
 				>
 					{#each formats as format (format.extension)}
+						{@const FormatIcon = format.icon}
 						<button
 							class="flex w-full cursor-pointer items-center justify-center gap-2 px-4 py-3 text-sm font-semibold text-white transition hover:bg-neutral-700"
 							onclick={() => onSelect(format.extension)}
 						>
+							<FormatIcon size={16} />
 							{format.label}
 						</button>
 					{/each}
