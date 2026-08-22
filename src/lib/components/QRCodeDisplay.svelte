@@ -40,9 +40,7 @@
 	<p class="mb-5 text-xs text-neutral-500">Your QR code will appear here automatically</p>
 
 	<div class="flex justify-center py-7">
-		<div class="inline-flex rounded-2xl bg-white p-5">
-			<div bind:this={container}></div>
-		</div>
+		<div bind:this={container}></div>
 	</div>
 
 	<div class="mb-4 grid grid-cols-2 gap-3">

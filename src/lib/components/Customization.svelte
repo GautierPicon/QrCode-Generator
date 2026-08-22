@@ -3,7 +3,7 @@
 
 	let {
 		size = $bindable(256),
-		margin = $bindable(4),
+		margin = $bindable(1),
 		darkColor = $bindable('#000000'),
 		lightColor = $bindable('#ffffff'),
 		errorLevel = $bindable<'L' | 'M' | 'Q' | 'H'>('M'),

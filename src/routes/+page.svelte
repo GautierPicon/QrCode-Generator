@@ -32,7 +32,7 @@
 	// svelte-ignore state_referenced_locally
 	let contactWebsite = $state(data.contactWebsite ?? '');
 	let size = $state(256);
-	let margin = $state(4);
+	let margin = $state(1);
 	let darkColor = $state('#000000');
 	let lightColor = $state('#ffffff');
 	let errorLevel = $state<'L' | 'M' | 'Q' | 'H'>('M');
@@ -103,10 +103,10 @@
 			width: size,
 			height: size,
 			data,
-			margin,
+			margin: margin * 4,
 			type: 'canvas' as const,
 			qrOptions: { errorCorrectionLevel: errorLevel },
-			dotsOptions: { color: darkColor, type: 'square' as const },
+			dotsOptions: { color: darkColor, type: 'square' as const, roundSize: false },
 			backgroundOptions: { color: lightColor },
 			image: logoUrl,
 			imageOptions: {
