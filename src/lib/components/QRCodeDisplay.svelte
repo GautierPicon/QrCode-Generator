@@ -23,7 +23,7 @@
 
 	let open = $state(false);
 	let dropdown: HTMLDivElement | undefined = $state();
-	let arrowIcon: HTMLSpanElement | undefined = $state();
+	let chevronIcon: HTMLSpanElement | undefined = $state();
 
 	function onSelect(extension: 'png' | 'webp' | 'jpeg' | 'svg') {
 		open = false;
@@ -31,18 +31,9 @@
 	}
 
 	$effect(() => {
-		if (!arrowIcon) return;
+		if (!chevronIcon) return;
 		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-		const tween = gsap.to(arrowIcon, {
-			y: 4,
-			repeat: -1,
-			yoyo: true,
-			duration: 0.5,
-			ease: 'sine.inOut'
-		});
-		return () => {
-			tween.kill();
-		};
+		gsap.to(chevronIcon, { rotation: open ? 180 : 0, duration: 0.3, ease: 'power2.out' });
 	});
 
 	$effect(() => {
@@ -78,11 +69,11 @@
 				aria-haspopup="menu"
 				aria-expanded={open}
 			>
-				<span class="inline-flex" bind:this={arrowIcon}>
-					<Download size={18} />
-				</span>
+				<Download size={18} />
 				Download
-				<ChevronDown size={16} />
+				<span class="inline-flex" bind:this={chevronIcon}>
+					<ChevronDown size={16} />
+				</span>
 			</button>
 			{#if open}
 				<div
