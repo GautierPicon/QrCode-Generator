@@ -4,13 +4,15 @@
 
 Free and feature-rich QR code generator
 
+**Try it**: https://qrcode.gautierpicon.com
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
 
 ## Features
 
-- Multi-format encoding
+- Multi-format encoding: text, URL, email, phone, SMS, Wi-Fi and contact card
 - Customizing the QR Code Design
 - Logo overlay
 - Real-time preview
@@ -19,8 +21,8 @@ Free and feature-rich QR code generator
 - Margin control
 - Color pickers
 - Error correction
-- Download PNG
-- Copy data
+- Download PNG, SVG, WebP or JPG
+- Copy shareable URL (data + design)
 
 ## Run Locally
 
@@ -42,10 +44,10 @@ Install dependencies
   bun install
 ```
 
-Start the server
+Start the dev server
 
 ```bash
-  bun run start
+  bun run dev
 ```
 
 ## Feedback
