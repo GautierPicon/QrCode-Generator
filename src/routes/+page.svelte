@@ -12,7 +12,7 @@
 	// svelte-ignore state_referenced_locally
 	let currentType = $state(data.type ?? 'text');
 	// svelte-ignore state_referenced_locally
-	let content = $state(data.content ?? 'Hello, world!');
+	let content = $state(data.content ?? '');
 	// svelte-ignore state_referenced_locally
 	let wifiSsid = $state(data.wifiSsid ?? '');
 	// svelte-ignore state_referenced_locally
@@ -42,6 +42,16 @@
 	// svelte-ignore state_referenced_locally
 	let errorLevel = $state<'L' | 'M' | 'Q' | 'H'>((data.errorLevel as 'L' | 'M' | 'Q' | 'H') ?? 'M');
 	let logoUrl: string | undefined = $state();
+
+	// svelte-ignore state_referenced_locally
+	let previousType = currentType;
+	$effect(() => {
+		if (currentType === previousType) return;
+		if (!content.trim() || content.trim() === labels[previousType].placeholder) {
+			content = '';
+		}
+		previousType = currentType;
+	});
 
 	let qrContainer: HTMLDivElement | undefined = $state();
 	let qrCode: QRCodeStyling | undefined = $state();
