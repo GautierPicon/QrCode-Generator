@@ -1,4 +1,4 @@
-# <a href="https://qrcode.gautierpicon.com"><img src="static/favicons/favicon.png" alt="Logo" width="28" /> QrCode-Generator</a>
+# <a href="https://qrcode.gautierpicon.com"><img src="static/favicons/favicon.png" alt="Logo" width="28" /> QrCode Generator</a>
 
 Free and feature-rich QR code generator
 
