@@ -68,7 +68,7 @@
 		<div bind:this={container}></div>
 	</div>
 
-	<div class="mb-4 grid grid-cols-2 gap-3">
+	<div class="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
 		<div bind:this={dropdown} class="relative">
 			<button
 				class="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-white py-3.5 text-base font-semibold text-black transition hover:opacity-85"
@@ -100,7 +100,7 @@
 			{/if}
 		</div>
 		<button
-			class="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-neutral-700 bg-transparent py-3.5 text-sm font-semibold text-white transition hover:opacity-85"
+			class="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-neutral-700 bg-transparent py-3.5 text-sm font-semibold whitespace-nowrap text-white transition hover:opacity-85"
 			onclick={() => copyUrl?.()}
 		>
 			{#if urlCopied}
