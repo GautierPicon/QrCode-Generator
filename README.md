@@ -1,28 +1,8 @@
-![Logo](static/favicons/favicon.png)
-
-# QrCode-Generator
+# <a href="https://qrcode.gautierpicon.com"><img src="static/favicons/favicon.png" alt="Logo" width="28" /> QrCode-Generator</a>
 
 Free and feature-rich QR code generator
 
 **Try it**: https://qrcode.gautierpicon.com
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
-
-## Features
-
-- Multi-format encoding: text, URL, email, phone, SMS, Wi-Fi and contact card
-- Customizing the QR Code Design
-- Logo overlay
-- Real-time preview
-- Placeholder fallback
-- Customizable size
-- Margin control
-- Color pickers
-- Error correction
-- Download PNG, SVG, WebP or JPG
-- Copy shareable URL (data + design)
 
 ## Run Locally
 
