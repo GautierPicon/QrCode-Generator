@@ -1,6 +1,12 @@
 <script lang="ts">
 	import QRCodeStyling from 'qr-code-styling';
-	import { labels } from '$lib/types';
+	import {
+		labels,
+		type CornerDotStyle,
+		type CornerSquareStyle,
+		type DotStyle,
+		type GradientType
+	} from '$lib/types';
 	import QRData from '$lib/components/QRData.svelte';
 	import Customization from '$lib/components/Customization.svelte';
 	import QRCodeDisplay from '$lib/components/QRCodeDisplay.svelte';
@@ -41,6 +47,26 @@
 	let lightColor = $state(data.lightColor ?? '#ffffff');
 	// svelte-ignore state_referenced_locally
 	let errorLevel = $state<'L' | 'M' | 'Q' | 'H'>((data.errorLevel as 'L' | 'M' | 'Q' | 'H') ?? 'M');
+	// svelte-ignore state_referenced_locally
+	let dotStyle = $state((data.dotStyle as DotStyle) ?? 'square');
+	// svelte-ignore state_referenced_locally
+	let cornerSquareStyle = $state((data.cornerSquareStyle as CornerSquareStyle) ?? 'square');
+	// svelte-ignore state_referenced_locally
+	let cornerDotStyle = $state((data.cornerDotStyle as CornerDotStyle) ?? 'square');
+	// svelte-ignore state_referenced_locally
+	let customEyeColors = $state(!!data.eyeColors);
+	// svelte-ignore state_referenced_locally
+	let cornerSquareColor = $state(data.cornerSquareColor ?? '');
+	// svelte-ignore state_referenced_locally
+	let cornerDotColor = $state(data.cornerDotColor ?? '');
+	// svelte-ignore state_referenced_locally
+	let dotGradient = $state<GradientType>((data.dotGradient as GradientType) ?? 'none');
+	// svelte-ignore state_referenced_locally
+	let dotColor2 = $state(data.dotColor2 ?? '');
+	// svelte-ignore state_referenced_locally
+	let bgGradient = $state<GradientType>((data.bgGradient as GradientType) ?? 'none');
+	// svelte-ignore state_referenced_locally
+	let lightColor2 = $state(data.lightColor2 ?? '');
 	let logoUrl: string | undefined = $state();
 
 	// svelte-ignore state_referenced_locally
@@ -110,6 +136,17 @@
 		return prefix + val;
 	}
 
+	function makeGradient(type: Exclude<GradientType, 'none'>, from: string, to: string) {
+		return {
+			type,
+			rotation: Math.PI / 4,
+			colorStops: [
+				{ offset: 0, color: from },
+				{ offset: 1, color: to }
+			]
+		};
+	}
+
 	function render() {
 		if (!qrContainer) return;
 		const data = buildData();
@@ -121,8 +158,30 @@
 			margin: margin * 4,
 			type: 'canvas' as const,
 			qrOptions: { errorCorrectionLevel: errorLevel },
-			dotsOptions: { color: darkColor, type: 'square' as const, roundSize: false },
-			backgroundOptions: { color: lightColor },
+			dotsOptions: {
+				color: darkColor,
+				type: dotStyle,
+				roundSize: false as const,
+				gradient:
+					dotGradient === 'none'
+						? undefined
+						: makeGradient(dotGradient, darkColor, dotColor2 || darkColor)
+			},
+			cornersSquareOptions: {
+				type: cornerSquareStyle,
+				color: customEyeColors ? cornerSquareColor || darkColor : darkColor
+			},
+			cornersDotOptions: {
+				type: cornerDotStyle,
+				color: customEyeColors ? cornerDotColor || darkColor : darkColor
+			},
+			backgroundOptions: {
+				color: lightColor,
+				gradient:
+					bgGradient === 'none'
+						? undefined
+						: makeGradient(bgGradient, lightColor, lightColor2 || lightColor)
+			},
 			image: logoUrl,
 			imageOptions: {
 				crossOrigin: 'anonymous' as const,
@@ -172,6 +231,22 @@
 		if (darkColor !== '#000000') params.set('darkColor', darkColor);
 		if (lightColor !== '#ffffff') params.set('lightColor', lightColor);
 		if (errorLevel !== 'M') params.set('errorLevel', errorLevel);
+		if (dotStyle !== 'square') params.set('dots', dotStyle);
+		if (cornerSquareStyle !== 'square') params.set('cornerSquares', cornerSquareStyle);
+		if (cornerDotStyle !== 'square') params.set('cornerDots', cornerDotStyle);
+		if (customEyeColors) {
+			params.set('eyeColors', '1');
+			if (cornerSquareColor) params.set('cornerSquareColor', cornerSquareColor);
+			if (cornerDotColor) params.set('cornerDotColor', cornerDotColor);
+		}
+		if (dotGradient !== 'none') {
+			params.set('dotGradient', dotGradient);
+			if (dotColor2) params.set('dotColor2', dotColor2);
+		}
+		if (bgGradient !== 'none') {
+			params.set('bgGradient', bgGradient);
+			if (lightColor2) params.set('lightColor2', lightColor2);
+		}
 		const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
 		navigator.clipboard
 			.writeText(url)

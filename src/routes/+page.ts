@@ -18,6 +18,16 @@ export const load: PageLoad = ({ url }) => {
 		margin: sp.get('margin') || undefined,
 		darkColor: sp.get('darkColor') || undefined,
 		lightColor: sp.get('lightColor') || undefined,
-		errorLevel: sp.get('errorLevel') || undefined
+		errorLevel: sp.get('errorLevel') || undefined,
+		dotStyle: sp.get('dots') || undefined,
+		cornerSquareStyle: sp.get('cornerSquares') || undefined,
+		cornerDotStyle: sp.get('cornerDots') || undefined,
+		eyeColors: sp.get('eyeColors') || undefined,
+		cornerSquareColor: sp.get('cornerSquareColor') || undefined,
+		cornerDotColor: sp.get('cornerDotColor') || undefined,
+		dotGradient: sp.get('dotGradient') || undefined,
+		dotColor2: sp.get('dotColor2') || undefined,
+		bgGradient: sp.get('bgGradient') || undefined,
+		lightColor2: sp.get('lightColor2') || undefined
 	};
 };
