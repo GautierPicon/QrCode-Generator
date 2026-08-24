@@ -126,6 +126,57 @@
 		/>
 	</div>
 
+	<div class="mb-5">
+		<p class="mb-2 text-sm font-semibold">Logo</p>
+		<input
+			bind:this={logoInput}
+			type="file"
+			accept="image/*"
+			class="hidden"
+			onchange={handleLogoUpload}
+		/>
+		{#if logoUrl}
+			<div class="rounded-lg border border-neutral-700 bg-neutral-800/50 p-3">
+				<div class="flex items-center gap-4">
+					<div
+						class="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-neutral-900"
+					>
+						<img src={logoUrl} alt="Logo preview" class="max-h-10 max-w-10 object-contain" />
+					</div>
+					<div class="min-w-0 flex-1">
+						<p class="truncate text-sm font-medium text-white">Logo uploaded</p>
+						<p class="text-xs text-neutral-500">Appears centered on the QR code</p>
+					</div>
+					<div class="flex gap-2">
+						<button
+							type="button"
+							onclick={() => logoInput?.click()}
+							class="cursor-pointer rounded-lg border border-neutral-700 px-3 py-1.5 text-xs font-medium text-neutral-300 transition hover:bg-neutral-700"
+						>
+							Change
+						</button>
+						<button
+							type="button"
+							onclick={removeLogo}
+							class="cursor-pointer rounded-lg border border-neutral-700 px-3 py-1.5 text-xs font-medium text-red-400 transition hover:bg-neutral-700"
+						>
+							Remove
+						</button>
+					</div>
+				</div>
+			</div>
+		{:else}
+			<button
+				type="button"
+				onclick={() => logoInput?.click()}
+				class="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-dashed border-neutral-700 px-4 py-3 text-sm text-neutral-400 transition hover:border-neutral-500 hover:text-neutral-300"
+			>
+				<Upload size={16} />
+				Upload logo
+			</button>
+		{/if}
+	</div>
+
 	<div class="mb-5 grid grid-cols-2 gap-4">
 		<div>
 			<label class="mb-2 block text-sm font-semibold" for="dark-color">Dark color</label>
@@ -306,55 +357,4 @@
 		<option value="Q">Quartile (25%)</option>
 		<option value="H">High (30%)</option>
 	</select>
-
-	<div class="mt-5">
-		<p class="mb-2 text-sm font-semibold">Logo</p>
-		<input
-			bind:this={logoInput}
-			type="file"
-			accept="image/*"
-			class="hidden"
-			onchange={handleLogoUpload}
-		/>
-		{#if logoUrl}
-			<div class="rounded-lg border border-neutral-700 bg-neutral-800/50 p-3">
-				<div class="flex items-center gap-4">
-					<div
-						class="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-neutral-900"
-					>
-						<img src={logoUrl} alt="Logo preview" class="max-h-10 max-w-10 object-contain" />
-					</div>
-					<div class="min-w-0 flex-1">
-						<p class="truncate text-sm font-medium text-white">Logo uploaded</p>
-						<p class="text-xs text-neutral-500">Appears centered on the QR code</p>
-					</div>
-					<div class="flex gap-2">
-						<button
-							type="button"
-							onclick={() => logoInput?.click()}
-							class="cursor-pointer rounded-lg border border-neutral-700 px-3 py-1.5 text-xs font-medium text-neutral-300 transition hover:bg-neutral-700"
-						>
-							Change
-						</button>
-						<button
-							type="button"
-							onclick={removeLogo}
-							class="cursor-pointer rounded-lg border border-neutral-700 px-3 py-1.5 text-xs font-medium text-red-400 transition hover:bg-neutral-700"
-						>
-							Remove
-						</button>
-					</div>
-				</div>
-			</div>
-		{:else}
-			<button
-				type="button"
-				onclick={() => logoInput?.click()}
-				class="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-dashed border-neutral-700 px-4 py-3 text-sm text-neutral-400 transition hover:border-neutral-500 hover:text-neutral-300"
-			>
-				<Upload size={16} />
-				Upload logo
-			</button>
-		{/if}
-	</div>
 </div>

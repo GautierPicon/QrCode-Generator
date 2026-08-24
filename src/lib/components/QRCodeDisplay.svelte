@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { gsap } from 'gsap';
-	import { ChevronDown, FileCode, FileImage, Link } from '@lucide/svelte';
+	import { ChevronDown, FileCode, FileImage, Link, QrCode } from '@lucide/svelte';
 
 	let {
 		container = $bindable<HTMLDivElement | undefined>(),
@@ -58,7 +58,10 @@
 </script>
 
 <div class="rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
-	<h2 class="mb-1 text-lg font-bold">Generated QR code</h2>
+	<h2 class="mb-1 flex items-center gap-2 text-lg font-bold">
+		<QrCode size={20} />
+		Generated QR code
+	</h2>
 	<p class="mb-5 text-xs text-neutral-500">Your QR code will appear here automatically</p>
 
 	<div class="flex justify-center py-7">

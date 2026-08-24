@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { labels, types } from '$lib/types';
-	import { QrCode } from '@lucide/svelte';
 
 	let {
 		currentType = $bindable('text'),
@@ -13,17 +12,15 @@
 		contactOrg = $bindable(''),
 		contactPhone = $bindable(''),
 		contactEmail = $bindable(''),
-		contactWebsite = $bindable('')
+		contactWebsite = $bindable(''),
+		dataPreview = ''
 	} = $props();
 
 	let currentConfig = $derived(labels[currentType]);
 </script>
 
 <div class="rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
-	<h2 class="mb-1 flex items-center gap-2 text-lg font-bold">
-		<QrCode size={20} />
-		QR Code Data
-	</h2>
+	<h2 class="mb-1 text-lg font-bold">QR Code Data</h2>
 	<p class="mb-5 text-xs text-neutral-500">Choose data type and enter information to encode</p>
 
 	<select
@@ -146,4 +143,14 @@
 			class="min-h-35 w-full resize-y rounded-lg border border-neutral-800 bg-neutral-950 px-3.5 py-3 text-sm text-white outline-none focus:border-neutral-600"
 		></textarea>
 	{/if}
+
+	<div class="mt-5">
+		<h2 class="mb-1 text-sm font-bold">Data preview</h2>
+		<p class="mb-3 text-xs text-neutral-500">Raw data that will be encoded in the QR code</p>
+		<div
+			class="min-h-6 rounded-lg bg-neutral-800 px-4 py-3.5 font-mono text-sm break-all text-neutral-200"
+		>
+			{dataPreview}
+		</div>
+	</div>
 </div>

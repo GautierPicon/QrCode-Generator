@@ -10,7 +10,6 @@
 	import QRData from '$lib/components/QRData.svelte';
 	import Customization from '$lib/components/Customization.svelte';
 	import QRCodeDisplay from '$lib/components/QRCodeDisplay.svelte';
-	import DataPreview from '$lib/components/DataPreview.svelte';
 	import GitHubLink from '$lib/components/GitHubLink.svelte';
 
 	let { data } = $props();
@@ -261,6 +260,7 @@
 <div class="min-h-screen bg-neutral-950 pt-12 text-white">
 	<div class="mx-auto grid max-w-6xl grid-cols-1 gap-5 px-6 pb-12 md:grid-cols-2">
 		<div class="flex flex-col gap-5">
+			<QRCodeDisplay bind:container={qrContainer} {urlCopied} {download} {copyUrl} />
 			<QRData
 				bind:currentType
 				bind:content
@@ -273,7 +273,11 @@
 				bind:contactPhone
 				bind:contactEmail
 				bind:contactWebsite
+				{dataPreview}
 			/>
+		</div>
+
+		<div class="flex flex-col gap-5">
 			<Customization
 				bind:size
 				bind:margin
@@ -281,12 +285,17 @@
 				bind:lightColor
 				bind:errorLevel
 				bind:logoUrl
+				bind:dotStyle
+				bind:cornerSquareStyle
+				bind:cornerDotStyle
+				bind:customEyeColors
+				bind:cornerSquareColor
+				bind:cornerDotColor
+				bind:dotGradient
+				bind:dotColor2
+				bind:bgGradient
+				bind:lightColor2
 			/>
-		</div>
-
-		<div class="flex flex-col gap-5">
-			<QRCodeDisplay bind:container={qrContainer} {urlCopied} {download} {copyUrl} />
-			<DataPreview {dataPreview} />
 			<GitHubLink />
 		</div>
 	</div>
