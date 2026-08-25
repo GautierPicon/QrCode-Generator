@@ -1,2 +1,11 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
+
+@layer base {
+	h1,
+	h2,
+	h3,
+	p {
+		cursor: text;
+	}
+}
