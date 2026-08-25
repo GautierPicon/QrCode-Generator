@@ -178,25 +178,31 @@
 		{/if}
 	</div>
 
+	<p class="mb-2 text-sm font-semibold">Colors</p>
+	<p class="mb-2 text-xs text-neutral-500">
+		Higher contrast between the code and background colors makes the QR code easier to scan.
+	</p>
 	<div class="mb-5 grid grid-cols-2 gap-4">
 		<div>
-			<label class="mb-2 block w-fit text-sm font-semibold" for="dark-color">Dark color</label>
+			<p class="mb-2 w-fit text-sm font-semibold">Code</p>
 			<input
 				id="dark-color"
 				type="color"
+				aria-label="Code color"
 				bind:this={darkInput}
 				oninput={(e) => (darkColor = (e.target as HTMLInputElement).value)}
-				class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950 p-1"
+				class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950"
 			/>
 		</div>
 		<div>
-			<label class="mb-2 block w-fit text-sm font-semibold" for="light-color">Light color</label>
+			<p class="mb-2 w-fit text-sm font-semibold">Background</p>
 			<input
 				id="light-color"
 				type="color"
+				aria-label="Background color"
 				bind:this={lightInput}
 				oninput={(e) => (lightColor = (e.target as HTMLInputElement).value)}
-				class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950 p-1"
+				class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950"
 			/>
 		</div>
 	</div>
@@ -251,7 +257,7 @@
 						bind:this={cornerSquareColorInput}
 						value={cornerSquareColor || darkColor}
 						oninput={(e) => (cornerSquareColor = (e.target as HTMLInputElement).value)}
-						class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950 p-1"
+						class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950"
 					/>
 					<p class="mt-1 text-xs text-neutral-500">Eye frames</p>
 				</div>
@@ -261,7 +267,7 @@
 						bind:this={cornerDotColorInput}
 						value={cornerDotColor || darkColor}
 						oninput={(e) => (cornerDotColor = (e.target as HTMLInputElement).value)}
-						class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950 p-1"
+						class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950"
 					/>
 					<p class="mt-1 text-xs text-neutral-500">Eye balls</p>
 				</div>
@@ -298,7 +304,7 @@
 						bind:this={dotColor2Input}
 						value={dotColor2 || '#8b5cf6'}
 						oninput={(e) => (dotColor2 = (e.target as HTMLInputElement).value)}
-						class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950 p-1"
+						class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950"
 					/>
 					<p class="mt-1 text-xs text-neutral-500">Dots gradient end</p>
 				</div>
@@ -312,7 +318,7 @@
 						bind:this={lightColor2Input}
 						value={lightColor2 || '#8b5cf6'}
 						oninput={(e) => (lightColor2 = (e.target as HTMLInputElement).value)}
-						class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950 p-1"
+						class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950"
 					/>
 					<p class="mt-1 text-xs text-neutral-500">Background gradient end</p>
 				</div>
