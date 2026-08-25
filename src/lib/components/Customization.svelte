@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { Upload } from '@lucide/svelte';
+	import Select from './Select.svelte';
 	import {
 		cornerDotStyleLabels,
 		cornerDotStyles,
@@ -202,15 +203,11 @@
 
 	<div class="mb-5">
 		<label class="mb-2 block text-sm font-semibold" for="dot-style">Module style</label>
-		<select
-			id="dot-style"
-			bind:value={dotStyle}
-			class="w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950 px-3.5 py-3 text-sm text-white outline-none"
-		>
+		<Select id="dot-style" bind:value={dotStyle}>
 			{#each dotStyles as style (style)}
 				<option value={style}>{dotStyleLabels[style]}</option>
 			{/each}
-		</select>
+		</Select>
 	</div>
 
 	<div class="mb-5 grid grid-cols-2 gap-4">
@@ -218,27 +215,19 @@
 			<label class="mb-2 block text-sm font-semibold" for="corner-square-style">
 				Eye frame style
 			</label>
-			<select
-				id="corner-square-style"
-				bind:value={cornerSquareStyle}
-				class="w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950 px-3.5 py-3 text-sm text-white outline-none"
-			>
+			<Select id="corner-square-style" bind:value={cornerSquareStyle}>
 				{#each cornerSquareStyles as style (style)}
 					<option value={style}>{cornerSquareStyleLabels[style]}</option>
 				{/each}
-			</select>
+			</Select>
 		</div>
 		<div>
 			<label class="mb-2 block text-sm font-semibold" for="corner-dot-style">Eye ball style</label>
-			<select
-				id="corner-dot-style"
-				bind:value={cornerDotStyle}
-				class="w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950 px-3.5 py-3 text-sm text-white outline-none"
-			>
+			<Select id="corner-dot-style" bind:value={cornerDotStyle}>
 				{#each cornerDotStyles as style (style)}
 					<option value={style}>{cornerDotStyleLabels[style]}</option>
 				{/each}
-			</select>
+			</Select>
 		</div>
 	</div>
 
@@ -283,29 +272,19 @@
 		<div class="grid grid-cols-2 gap-4">
 			<div>
 				<label class="mb-2 block text-xs text-neutral-400" for="dot-gradient">Dots</label>
-				<select
-					id="dot-gradient"
-					bind:value={dotGradient}
-					onchange={() => setGradient('dots')}
-					class="w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950 px-3.5 py-3 text-sm text-white outline-none"
-				>
+				<Select id="dot-gradient" bind:value={dotGradient} onchange={() => setGradient('dots')}>
 					{#each gradientTypes as type (type)}
 						<option value={type}>{gradientLabels[type]}</option>
 					{/each}
-				</select>
+				</Select>
 			</div>
 			<div>
 				<label class="mb-2 block text-xs text-neutral-400" for="bg-gradient">Background</label>
-				<select
-					id="bg-gradient"
-					bind:value={bgGradient}
-					onchange={() => setGradient('background')}
-					class="w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950 px-3.5 py-3 text-sm text-white outline-none"
-				>
+				<Select id="bg-gradient" bind:value={bgGradient} onchange={() => setGradient('background')}>
 					{#each gradientTypes as type (type)}
 						<option value={type}>{gradientLabels[type]}</option>
 					{/each}
-				</select>
+				</Select>
 			</div>
 		</div>
 		{#if dotGradient !== 'none'}
@@ -346,15 +325,10 @@
 			<span class="text-neutral-400">Forced to H while a logo is set.</span>
 		{/if}
 	</p>
-	<select
-		id="error-level"
-		bind:value={errorLevel}
-		disabled={errorLevelDisabled}
-		class="w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950 px-3.5 py-3 text-sm text-white outline-none disabled:opacity-50"
-	>
+	<Select id="error-level" bind:value={errorLevel} disabled={errorLevelDisabled}>
 		<option value="L">Low (7%)</option>
 		<option value="M">Medium (15%)</option>
 		<option value="Q">Quartile (25%)</option>
 		<option value="H">High (30%)</option>
-	</select>
+	</Select>
 </div>

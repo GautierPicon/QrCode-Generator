@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { labels, types } from '$lib/types';
+	import Select from './Select.svelte';
 
 	let {
 		currentType = $bindable('text'),
@@ -23,14 +24,11 @@
 	<h2 class="mb-1 text-lg font-bold">QR Code Data</h2>
 	<p class="mb-5 text-xs text-neutral-500">Choose data type and enter information to encode</p>
 
-	<select
-		bind:value={currentType}
-		class="mb-5 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950 px-3.5 py-3 text-sm text-white outline-none"
-	>
+	<Select bind:value={currentType} class="mb-5">
 		{#each types as type (type)}
 			<option value={type}>{type[0].toUpperCase() + type.slice(1)}</option>
 		{/each}
-	</select>
+	</Select>
 
 	{#if currentType === 'wifi'}
 		<div class="space-y-4">
@@ -46,15 +44,11 @@
 			</div>
 			<div>
 				<label class="mb-2 block text-sm font-semibold" for="wifi-security">Security</label>
-				<select
-					id="wifi-security"
-					bind:value={wifiSecurity}
-					class="w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950 px-3.5 py-3 text-sm text-white outline-none"
-				>
+				<Select id="wifi-security" bind:value={wifiSecurity}>
 					<option value="WPA">WPA/WPA2</option>
 					<option value="WEP">WEP</option>
 					<option value="nopass">None</option>
-				</select>
+				</Select>
 			</div>
 			<div>
 				<label class="mb-2 block text-sm font-semibold" for="wifi-password">Password</label>
