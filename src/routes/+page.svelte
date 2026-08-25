@@ -275,6 +275,7 @@
 				bind:contactWebsite
 				{dataPreview}
 			/>
+			<GitHubLink />
 		</div>
 
 		<div class="flex flex-col gap-5">
@@ -296,7 +297,6 @@
 				bind:bgGradient
 				bind:lightColor2
 			/>
-			<GitHubLink />
 		</div>
 	</div>
 </div>
