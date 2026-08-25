@@ -31,9 +31,6 @@ export type CornerDotStyle = (typeof cornerDotStyles)[number];
 export const gradientTypes = ['none', 'linear', 'radial'] as const;
 export type GradientType = (typeof gradientTypes)[number];
 
-export const frameStyles = ['none', 'outline', 'solid'] as const;
-export type FrameStyle = (typeof frameStyles)[number];
-
 export const dotStyleLabels: Record<DotStyle, string> = {
 	square: 'Square',
 	rounded: 'Rounded',
@@ -58,10 +55,4 @@ export const gradientLabels: Record<GradientType, string> = {
 	none: 'None',
 	linear: 'Linear',
 	radial: 'Radial'
-};
-
-export const frameStyleLabels: Record<FrameStyle, string> = {
-	none: 'Normal',
-	outline: 'Outlined',
-	solid: 'Outlined filled'
 };

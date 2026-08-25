@@ -9,14 +9,11 @@
 		cornerSquareStyles,
 		dotStyleLabels,
 		dotStyles,
-		frameStyleLabels,
-		frameStyles,
 		gradientLabels,
 		gradientTypes,
 		type CornerDotStyle,
 		type CornerSquareStyle,
 		type DotStyle,
-		type FrameStyle,
 		type GradientType
 	} from '$lib/types';
 
@@ -30,9 +27,6 @@
 		dotStyle = $bindable<DotStyle>('square'),
 		cornerSquareStyle = $bindable<CornerSquareStyle>('square'),
 		cornerDotStyle = $bindable<CornerDotStyle>('square'),
-		frameStyle = $bindable<FrameStyle>('none'),
-		showCaption = $bindable(false),
-		captionText = $bindable(''),
 		customEyeColors = $bindable(false),
 		cornerSquareColor = $bindable(''),
 		cornerDotColor = $bindable(''),
@@ -220,42 +214,6 @@
 					{/each}
 				</Select>
 			</div>
-		</div>
-	</div>
-</div>
-
-<div class="rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
-	<h2 class="mb-1 text-lg font-bold">Frame</h2>
-	<p class="mb-5 text-xs text-neutral-500">Decorate the code and add a caption below it</p>
-
-	<div class="space-y-4">
-		<div>
-			<label class="mb-2 block w-fit text-sm font-semibold" for="frame-style">Frame style</label>
-			<Select id="frame-style" bind:value={frameStyle}>
-				{#each frameStyles as style (style)}
-					<option value={style}>{frameStyleLabels[style]}</option>
-				{/each}
-			</Select>
-		</div>
-
-		<div>
-			<label class="flex cursor-pointer items-center gap-2 text-sm font-semibold">
-				<input
-					type="checkbox"
-					bind:checked={showCaption}
-					class="h-4 w-4 cursor-pointer accent-white"
-				/>
-				Write text under the QR code
-			</label>
-			{#if showCaption}
-				<input
-					type="text"
-					bind:value={captionText}
-					placeholder="Scan me"
-					maxlength="40"
-					class="mt-4 w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3.5 py-3 text-sm text-white outline-none focus:border-neutral-600"
-				/>
-			{/if}
 		</div>
 	</div>
 </div>
