@@ -98,7 +98,7 @@
 	<p class="mb-5 text-xs text-neutral-500">Adjust QR code appearance and error correction</p>
 
 	<div class="mb-5">
-		<label class="mb-2.5 block text-sm font-semibold" for="size-slider">
+		<label class="mb-2.5 block w-fit text-sm font-semibold" for="size-slider">
 			Size: {size}px
 		</label>
 		<input
@@ -113,7 +113,7 @@
 	</div>
 
 	<div class="mb-5">
-		<label class="mb-2.5 block text-sm font-semibold" for="margin-slider">
+		<label class="mb-2.5 block w-fit text-sm font-semibold" for="margin-slider">
 			Margin: {margin}
 		</label>
 		<input
@@ -180,7 +180,7 @@
 
 	<div class="mb-5 grid grid-cols-2 gap-4">
 		<div>
-			<label class="mb-2 block text-sm font-semibold" for="dark-color">Dark color</label>
+			<label class="mb-2 block w-fit text-sm font-semibold" for="dark-color">Dark color</label>
 			<input
 				id="dark-color"
 				type="color"
@@ -190,7 +190,7 @@
 			/>
 		</div>
 		<div>
-			<label class="mb-2 block text-sm font-semibold" for="light-color">Light color</label>
+			<label class="mb-2 block w-fit text-sm font-semibold" for="light-color">Light color</label>
 			<input
 				id="light-color"
 				type="color"
@@ -202,7 +202,7 @@
 	</div>
 
 	<div class="mb-5">
-		<label class="mb-2 block text-sm font-semibold" for="dot-style">Module style</label>
+		<label class="mb-2 block w-fit text-sm font-semibold" for="dot-style">Module style</label>
 		<Select id="dot-style" bind:value={dotStyle}>
 			{#each dotStyles as style (style)}
 				<option value={style}>{dotStyleLabels[style]}</option>
@@ -212,7 +212,7 @@
 
 	<div class="mb-5 grid grid-cols-2 gap-4">
 		<div>
-			<label class="mb-2 block text-sm font-semibold" for="corner-square-style">
+			<label class="mb-2 block w-fit text-sm font-semibold" for="corner-square-style">
 				Eye frame style
 			</label>
 			<Select id="corner-square-style" bind:value={cornerSquareStyle}>
@@ -222,7 +222,9 @@
 			</Select>
 		</div>
 		<div>
-			<label class="mb-2 block text-sm font-semibold" for="corner-dot-style">Eye ball style</label>
+			<label class="mb-2 block w-fit text-sm font-semibold" for="corner-dot-style"
+				>Eye ball style</label
+			>
 			<Select id="corner-dot-style" bind:value={cornerDotStyle}>
 				{#each cornerDotStyles as style (style)}
 					<option value={style}>{cornerDotStyleLabels[style]}</option>
@@ -271,7 +273,7 @@
 		<p class="text-sm font-semibold">Gradients</p>
 		<div class="grid grid-cols-2 gap-4">
 			<div>
-				<label class="mb-2 block text-xs text-neutral-400" for="dot-gradient">Dots</label>
+				<label class="mb-2 block w-fit text-xs text-neutral-400" for="dot-gradient">Dots</label>
 				<Select id="dot-gradient" bind:value={dotGradient} onchange={() => setGradient('dots')}>
 					{#each gradientTypes as type (type)}
 						<option value={type}>{gradientLabels[type]}</option>
@@ -279,7 +281,8 @@
 				</Select>
 			</div>
 			<div>
-				<label class="mb-2 block text-xs text-neutral-400" for="bg-gradient">Background</label>
+				<label class="mb-2 block w-fit text-xs text-neutral-400" for="bg-gradient">Background</label
+				>
 				<Select id="bg-gradient" bind:value={bgGradient} onchange={() => setGradient('background')}>
 					{#each gradientTypes as type (type)}
 						<option value={type}>{gradientLabels[type]}</option>
@@ -317,7 +320,9 @@
 		{/if}
 	</div>
 
-	<label class="mb-2 block text-sm font-semibold" for="error-level"> Error correction level </label>
+	<label class="mb-2 block w-fit text-sm font-semibold" for="error-level">
+		Error correction level
+	</label>
 	<p class="mb-2 text-xs text-neutral-500">
 		Higher levels make the code more resistant to damage but increase its complexity. L (7%) is best
 		for clean prints, H (30%) for maximum durability.

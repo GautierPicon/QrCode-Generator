@@ -33,7 +33,9 @@
 	{#if currentType === 'wifi'}
 		<div class="space-y-4">
 			<div>
-				<label class="mb-2 block text-sm font-semibold" for="wifi-ssid">Network Name (SSID)</label>
+				<label class="mb-2 block w-fit text-sm font-semibold" for="wifi-ssid"
+					>Network Name (SSID)</label
+				>
 				<input
 					id="wifi-ssid"
 					type="text"
@@ -43,7 +45,7 @@
 				/>
 			</div>
 			<div>
-				<label class="mb-2 block text-sm font-semibold" for="wifi-security">Security</label>
+				<label class="mb-2 block w-fit text-sm font-semibold" for="wifi-security">Security</label>
 				<Select id="wifi-security" bind:value={wifiSecurity}>
 					<option value="WPA">WPA/WPA2</option>
 					<option value="WEP">WEP</option>
@@ -51,7 +53,7 @@
 				</Select>
 			</div>
 			<div>
-				<label class="mb-2 block text-sm font-semibold" for="wifi-password">Password</label>
+				<label class="mb-2 block w-fit text-sm font-semibold" for="wifi-password">Password</label>
 				<input
 					id="wifi-password"
 					type="password"
@@ -65,7 +67,9 @@
 		<div class="space-y-4">
 			<div class="grid grid-cols-2 gap-4">
 				<div>
-					<label class="mb-2 block text-sm font-semibold" for="contact-first">First Name</label>
+					<label class="mb-2 block w-fit text-sm font-semibold" for="contact-first"
+						>First Name</label
+					>
 					<input
 						id="contact-first"
 						type="text"
@@ -75,7 +79,7 @@
 					/>
 				</div>
 				<div>
-					<label class="mb-2 block text-sm font-semibold" for="contact-last">Last Name</label>
+					<label class="mb-2 block w-fit text-sm font-semibold" for="contact-last">Last Name</label>
 					<input
 						id="contact-last"
 						type="text"
@@ -86,7 +90,7 @@
 				</div>
 			</div>
 			<div>
-				<label class="mb-2 block text-sm font-semibold" for="contact-org">Organization</label>
+				<label class="mb-2 block w-fit text-sm font-semibold" for="contact-org">Organization</label>
 				<input
 					id="contact-org"
 					type="text"
@@ -96,7 +100,7 @@
 				/>
 			</div>
 			<div>
-				<label class="mb-2 block text-sm font-semibold" for="contact-phone">Phone</label>
+				<label class="mb-2 block w-fit text-sm font-semibold" for="contact-phone">Phone</label>
 				<input
 					id="contact-phone"
 					type="tel"
@@ -106,7 +110,7 @@
 				/>
 			</div>
 			<div>
-				<label class="mb-2 block text-sm font-semibold" for="contact-email">Email</label>
+				<label class="mb-2 block w-fit text-sm font-semibold" for="contact-email">Email</label>
 				<input
 					id="contact-email"
 					type="email"
@@ -116,7 +120,7 @@
 				/>
 			</div>
 			<div>
-				<label class="mb-2 block text-sm font-semibold" for="contact-website">Website</label>
+				<label class="mb-2 block w-fit text-sm font-semibold" for="contact-website">Website</label>
 				<input
 					id="contact-website"
 					type="url"
@@ -127,7 +131,7 @@
 			</div>
 		</div>
 	{:else}
-		<label class="mb-2 block text-sm font-semibold" for="content-input">
+		<label class="mb-2 block w-fit text-sm font-semibold" for="content-input">
 			{currentConfig.label}
 		</label>
 		<textarea
