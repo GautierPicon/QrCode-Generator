@@ -9,11 +9,14 @@
 		cornerSquareStyles,
 		dotStyleLabels,
 		dotStyles,
+		frameStyleLabels,
+		frameStyles,
 		gradientLabels,
 		gradientTypes,
 		type CornerDotStyle,
 		type CornerSquareStyle,
 		type DotStyle,
+		type FrameStyle,
 		type GradientType
 	} from '$lib/types';
 
@@ -27,6 +30,9 @@
 		dotStyle = $bindable<DotStyle>('square'),
 		cornerSquareStyle = $bindable<CornerSquareStyle>('square'),
 		cornerDotStyle = $bindable<CornerDotStyle>('square'),
+		frameStyle = $bindable<FrameStyle>('none'),
+		showCaption = $bindable(false),
+		captionText = $bindable(''),
 		customEyeColors = $bindable(false),
 		cornerSquareColor = $bindable(''),
 		cornerDotColor = $bindable(''),
@@ -94,8 +100,8 @@
 </script>
 
 <div class="rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
-	<h2 class="mb-1 text-lg font-bold">Customization</h2>
-	<p class="mb-5 text-xs text-neutral-500">Adjust QR code appearance and error correction</p>
+	<h2 class="mb-1 text-lg font-bold">Layout</h2>
+	<p class="mb-5 text-xs text-neutral-500">Size of the QR code and its quiet zone</p>
 
 	<div class="mb-5">
 		<label class="mb-2.5 block w-fit text-sm font-semibold" for="size-slider">
@@ -112,7 +118,7 @@
 		/>
 	</div>
 
-	<div class="mb-5">
+	<div>
 		<label class="mb-2.5 block w-fit text-sm font-semibold" for="margin-slider">
 			Margin: {margin}
 		</label>
@@ -126,216 +132,270 @@
 			class="w-full cursor-pointer accent-white"
 		/>
 	</div>
+</div>
 
-	<div class="mb-5">
-		<p class="mb-2 text-sm font-semibold">Logo</p>
-		<input
-			bind:this={logoInput}
-			type="file"
-			accept="image/*"
-			class="hidden"
-			onchange={handleLogoUpload}
-		/>
-		{#if logoUrl}
-			<div class="rounded-lg border border-neutral-700 bg-neutral-800/50 p-3">
-				<div class="flex items-center gap-4">
-					<div
-						class="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-neutral-900"
+<div class="rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
+	<h2 class="mb-1 text-lg font-bold">Logo</h2>
+	<p class="mb-5 text-xs text-neutral-500">Add an image at the center of the QR code</p>
+
+	<input
+		bind:this={logoInput}
+		type="file"
+		accept="image/*"
+		class="hidden"
+		onchange={handleLogoUpload}
+	/>
+	{#if logoUrl}
+		<div class="rounded-lg border border-neutral-700 bg-neutral-800/50 p-3">
+			<div class="flex items-center gap-4">
+				<div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-neutral-900">
+					<img src={logoUrl} alt="Logo preview" class="max-h-10 max-w-10 object-contain" />
+				</div>
+				<div class="min-w-0 flex-1">
+					<p class="truncate text-sm font-medium text-white">Logo uploaded</p>
+					<p class="text-xs text-neutral-500">Appears centered on the QR code</p>
+				</div>
+				<div class="flex gap-2">
+					<button
+						type="button"
+						onclick={() => logoInput?.click()}
+						class="cursor-pointer rounded-lg border border-neutral-700 px-3 py-1.5 text-xs font-medium text-neutral-300 transition hover:bg-neutral-700"
 					>
-						<img src={logoUrl} alt="Logo preview" class="max-h-10 max-w-10 object-contain" />
-					</div>
-					<div class="min-w-0 flex-1">
-						<p class="truncate text-sm font-medium text-white">Logo uploaded</p>
-						<p class="text-xs text-neutral-500">Appears centered on the QR code</p>
-					</div>
-					<div class="flex gap-2">
-						<button
-							type="button"
-							onclick={() => logoInput?.click()}
-							class="cursor-pointer rounded-lg border border-neutral-700 px-3 py-1.5 text-xs font-medium text-neutral-300 transition hover:bg-neutral-700"
-						>
-							Change
-						</button>
-						<button
-							type="button"
-							onclick={removeLogo}
-							class="cursor-pointer rounded-lg border border-neutral-700 px-3 py-1.5 text-xs font-medium text-red-400 transition hover:bg-neutral-700"
-						>
-							Remove
-						</button>
-					</div>
+						Change
+					</button>
+					<button
+						type="button"
+						onclick={removeLogo}
+						class="cursor-pointer rounded-lg border border-neutral-700 px-3 py-1.5 text-xs font-medium text-red-400 transition hover:bg-neutral-700"
+					>
+						Remove
+					</button>
 				</div>
 			</div>
-		{:else}
-			<button
-				type="button"
-				onclick={() => logoInput?.click()}
-				class="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-dashed border-neutral-700 px-4 py-3 text-sm text-neutral-400 transition hover:border-neutral-500 hover:text-neutral-300"
-			>
-				<Upload size={16} />
-				Upload logo
-			</button>
-		{/if}
-	</div>
-
-	<p class="mb-2 text-sm font-semibold">Colors</p>
-	<p class="mb-2 text-xs text-neutral-500">
-		Higher contrast between the code and background colors makes the QR code easier to scan.
-	</p>
-	<div class="mb-5 grid grid-cols-2 gap-4">
-		<div>
-			<p class="mb-2 w-fit text-sm font-semibold">Code</p>
-			<input
-				id="dark-color"
-				type="color"
-				aria-label="Code color"
-				bind:this={darkInput}
-				oninput={(e) => (darkColor = (e.target as HTMLInputElement).value)}
-				class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950"
-			/>
 		</div>
-		<div>
-			<p class="mb-2 w-fit text-sm font-semibold">Background</p>
-			<input
-				id="light-color"
-				type="color"
-				aria-label="Background color"
-				bind:this={lightInput}
-				oninput={(e) => (lightColor = (e.target as HTMLInputElement).value)}
-				class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950"
-			/>
-		</div>
-	</div>
+	{:else}
+		<button
+			type="button"
+			onclick={() => logoInput?.click()}
+			class="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-dashed border-neutral-700 px-4 py-3 text-sm text-neutral-400 transition hover:border-neutral-500 hover:text-neutral-300"
+		>
+			<Upload size={16} />
+			Upload logo
+		</button>
+	{/if}
+</div>
 
-	<div class="mb-5">
-		<label class="mb-2 block w-fit text-sm font-semibold" for="dot-style">Module style</label>
-		<Select id="dot-style" bind:value={dotStyle}>
-			{#each dotStyles as style (style)}
-				<option value={style}>{dotStyleLabels[style]}</option>
-			{/each}
-		</Select>
-	</div>
+<div class="rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
+	<h2 class="mb-1 text-lg font-bold">Styles</h2>
+	<p class="mb-5 text-xs text-neutral-500">Shape of the modules and corner eyes</p>
 
-	<div class="mb-5 grid grid-cols-2 gap-4">
+	<div class="space-y-4">
 		<div>
-			<label class="mb-2 block w-fit text-sm font-semibold" for="corner-square-style">
-				Eye frame style
-			</label>
-			<Select id="corner-square-style" bind:value={cornerSquareStyle}>
-				{#each cornerSquareStyles as style (style)}
-					<option value={style}>{cornerSquareStyleLabels[style]}</option>
+			<label class="mb-2 block w-fit text-sm font-semibold" for="dot-style">Module style</label>
+			<Select id="dot-style" bind:value={dotStyle}>
+				{#each dotStyles as style (style)}
+					<option value={style}>{dotStyleLabels[style]}</option>
 				{/each}
 			</Select>
 		</div>
-		<div>
-			<label class="mb-2 block w-fit text-sm font-semibold" for="corner-dot-style"
-				>Eye ball style</label
-			>
-			<Select id="corner-dot-style" bind:value={cornerDotStyle}>
-				{#each cornerDotStyles as style (style)}
-					<option value={style}>{cornerDotStyleLabels[style]}</option>
-				{/each}
-			</Select>
-		</div>
-	</div>
 
-	<div class="mb-5">
-		<label class="flex cursor-pointer items-center gap-2 text-sm font-semibold">
-			<input
-				type="checkbox"
-				bind:checked={customEyeColors}
-				onchange={toggleEyeColors}
-				class="h-4 w-4 cursor-pointer accent-white"
-			/>
-			Custom eye colors
-		</label>
-		{#if customEyeColors}
-			<div class="mt-2 grid grid-cols-2 gap-4">
-				<div>
-					<input
-						type="color"
-						bind:this={cornerSquareColorInput}
-						value={cornerSquareColor || darkColor}
-						oninput={(e) => (cornerSquareColor = (e.target as HTMLInputElement).value)}
-						class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950"
-					/>
-					<p class="mt-1 text-xs text-neutral-500">Eye frames</p>
-				</div>
-				<div>
-					<input
-						type="color"
-						bind:this={cornerDotColorInput}
-						value={cornerDotColor || darkColor}
-						oninput={(e) => (cornerDotColor = (e.target as HTMLInputElement).value)}
-						class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950"
-					/>
-					<p class="mt-1 text-xs text-neutral-500">Eye balls</p>
-				</div>
-			</div>
-		{/if}
-	</div>
-
-	<div class="mb-5 space-y-3">
-		<p class="text-sm font-semibold">Gradients</p>
 		<div class="grid grid-cols-2 gap-4">
 			<div>
-				<label class="mb-2 block w-fit text-xs text-neutral-400" for="dot-gradient">Dots</label>
-				<Select id="dot-gradient" bind:value={dotGradient} onchange={() => setGradient('dots')}>
-					{#each gradientTypes as type (type)}
-						<option value={type}>{gradientLabels[type]}</option>
+				<label class="mb-2 block w-fit text-sm font-semibold" for="corner-square-style">
+					Eye frame style
+				</label>
+				<Select id="corner-square-style" bind:value={cornerSquareStyle}>
+					{#each cornerSquareStyles as style (style)}
+						<option value={style}>{cornerSquareStyleLabels[style]}</option>
 					{/each}
 				</Select>
 			</div>
 			<div>
-				<label class="mb-2 block w-fit text-xs text-neutral-400" for="bg-gradient">Background</label
+				<label class="mb-2 block w-fit text-sm font-semibold" for="corner-dot-style"
+					>Eye ball style</label
 				>
-				<Select id="bg-gradient" bind:value={bgGradient} onchange={() => setGradient('background')}>
-					{#each gradientTypes as type (type)}
-						<option value={type}>{gradientLabels[type]}</option>
+				<Select id="corner-dot-style" bind:value={cornerDotStyle}>
+					{#each cornerDotStyles as style (style)}
+						<option value={style}>{cornerDotStyleLabels[style]}</option>
 					{/each}
 				</Select>
 			</div>
 		</div>
-		{#if dotGradient !== 'none'}
-			<div class="grid grid-cols-2 gap-4">
-				<div>
-					<input
-						type="color"
-						bind:this={dotColor2Input}
-						value={dotColor2 || '#8b5cf6'}
-						oninput={(e) => (dotColor2 = (e.target as HTMLInputElement).value)}
-						class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950"
-					/>
-					<p class="mt-1 text-xs text-neutral-500">Dots gradient end</p>
-				</div>
-			</div>
-		{/if}
-		{#if bgGradient !== 'none'}
-			<div class="grid grid-cols-2 gap-4">
-				<div>
-					<input
-						type="color"
-						bind:this={lightColor2Input}
-						value={lightColor2 || '#8b5cf6'}
-						oninput={(e) => (lightColor2 = (e.target as HTMLInputElement).value)}
-						class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950"
-					/>
-					<p class="mt-1 text-xs text-neutral-500">Background gradient end</p>
-				</div>
-			</div>
-		{/if}
 	</div>
+</div>
 
-	<label class="mb-2 block w-fit text-sm font-semibold" for="error-level">
-		Error correction level
-	</label>
-	<p class="mb-2 text-xs text-neutral-500">
+<div class="rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
+	<h2 class="mb-1 text-lg font-bold">Frame</h2>
+	<p class="mb-5 text-xs text-neutral-500">Decorate the code and add a caption below it</p>
+
+	<div class="space-y-4">
+		<div>
+			<label class="mb-2 block w-fit text-sm font-semibold" for="frame-style">Frame style</label>
+			<Select id="frame-style" bind:value={frameStyle}>
+				{#each frameStyles as style (style)}
+					<option value={style}>{frameStyleLabels[style]}</option>
+				{/each}
+			</Select>
+		</div>
+
+		<div>
+			<label class="flex cursor-pointer items-center gap-2 text-sm font-semibold">
+				<input
+					type="checkbox"
+					bind:checked={showCaption}
+					class="h-4 w-4 cursor-pointer accent-white"
+				/>
+				Write text under the QR code
+			</label>
+			{#if showCaption}
+				<input
+					type="text"
+					bind:value={captionText}
+					placeholder="Scan me"
+					maxlength="40"
+					class="mt-4 w-full rounded-lg border border-neutral-800 bg-neutral-950 px-3.5 py-3 text-sm text-white outline-none focus:border-neutral-600"
+				/>
+			{/if}
+		</div>
+	</div>
+</div>
+
+<div class="rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
+	<h2 class="mb-1 text-lg font-bold">Colors</h2>
+	<p class="mb-5 text-xs text-neutral-500">
+		Higher contrast between the code and background colors makes the QR code easier to scan.
+	</p>
+
+	<div class="space-y-5">
+		<div class="grid grid-cols-2 gap-4">
+			<div>
+				<p class="mb-2 w-fit text-sm font-semibold">Code</p>
+				<input
+					id="dark-color"
+					type="color"
+					aria-label="Code color"
+					bind:this={darkInput}
+					oninput={(e) => (darkColor = (e.target as HTMLInputElement).value)}
+					class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950"
+				/>
+			</div>
+			<div>
+				<p class="mb-2 w-fit text-sm font-semibold">Background</p>
+				<input
+					id="light-color"
+					type="color"
+					aria-label="Background color"
+					bind:this={lightInput}
+					oninput={(e) => (lightColor = (e.target as HTMLInputElement).value)}
+					class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950"
+				/>
+			</div>
+		</div>
+
+		<div>
+			<label class="flex cursor-pointer items-center gap-2 text-sm font-semibold">
+				<input
+					type="checkbox"
+					bind:checked={customEyeColors}
+					onchange={toggleEyeColors}
+					class="h-4 w-4 cursor-pointer accent-white"
+				/>
+				Custom eye colors
+			</label>
+			{#if customEyeColors}
+				<div class="mt-4 grid grid-cols-2 gap-4">
+					<div>
+						<p class="mb-2 w-fit text-xs text-neutral-500">Eye frames</p>
+						<input
+							type="color"
+							bind:this={cornerSquareColorInput}
+							value={cornerSquareColor || darkColor}
+							oninput={(e) => (cornerSquareColor = (e.target as HTMLInputElement).value)}
+							class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950"
+						/>
+					</div>
+					<div>
+						<p class="mb-2 w-fit text-xs text-neutral-500">Eye balls</p>
+						<input
+							type="color"
+							bind:this={cornerDotColorInput}
+							value={cornerDotColor || darkColor}
+							oninput={(e) => (cornerDotColor = (e.target as HTMLInputElement).value)}
+							class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950"
+						/>
+					</div>
+				</div>
+			{/if}
+		</div>
+
+		<div class="space-y-4">
+			<div class="grid grid-cols-2 gap-4">
+				<div>
+					<label class="mb-2 block w-fit text-xs text-neutral-400" for="dot-gradient">Dots</label>
+					<Select id="dot-gradient" bind:value={dotGradient} onchange={() => setGradient('dots')}>
+						{#each gradientTypes as type (type)}
+							<option value={type}>{gradientLabels[type]}</option>
+						{/each}
+					</Select>
+				</div>
+				<div>
+					<label class="mb-2 block w-fit text-xs text-neutral-400" for="bg-gradient"
+						>Background</label
+					>
+					<Select
+						id="bg-gradient"
+						bind:value={bgGradient}
+						onchange={() => setGradient('background')}
+					>
+						{#each gradientTypes as type (type)}
+							<option value={type}>{gradientLabels[type]}</option>
+						{/each}
+					</Select>
+				</div>
+			</div>
+			{#if dotGradient !== 'none'}
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<p class="mb-2 w-fit text-xs text-neutral-500">Dots gradient end</p>
+						<input
+							type="color"
+							bind:this={dotColor2Input}
+							value={dotColor2 || '#8b5cf6'}
+							oninput={(e) => (dotColor2 = (e.target as HTMLInputElement).value)}
+							class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950"
+						/>
+					</div>
+				</div>
+			{/if}
+			{#if bgGradient !== 'none'}
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<p class="mb-2 w-fit text-xs text-neutral-500">Background gradient end</p>
+						<input
+							type="color"
+							bind:this={lightColor2Input}
+							value={lightColor2 || '#8b5cf6'}
+							oninput={(e) => (lightColor2 = (e.target as HTMLInputElement).value)}
+							class="h-10 w-full cursor-pointer rounded-lg border border-neutral-800 bg-neutral-950"
+						/>
+					</div>
+				</div>
+			{/if}
+		</div>
+	</div>
+</div>
+
+<div class="rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
+	<h2 class="mb-1 text-lg font-bold">Error correction</h2>
+	<p class="mb-5 text-xs text-neutral-500">
 		Higher levels make the code more resistant to damage but increase its complexity. L (7%) is best
 		for clean prints, H (30%) for maximum durability.
 		{#if logoUrl}
 			<span class="text-neutral-400">Forced to H while a logo is set.</span>
 		{/if}
 	</p>
+
+	<label class="sr-only" for="error-level">Error correction level</label>
 	<Select id="error-level" bind:value={errorLevel} disabled={errorLevelDisabled}>
 		<option value="L">Low (7%)</option>
 		<option value="M">Medium (15%)</option>
